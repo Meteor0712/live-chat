@@ -11,6 +11,7 @@
 import { ref } from 'vue'
 export default {
     setup() { 
+        const displayName = ref('')
         const email = ref('')
         const password = ref('')
 
