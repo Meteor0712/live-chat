@@ -3,23 +3,29 @@
       <input type="text" required placeholder="display name" v-model="displayName">
       <input type="email" required placeholder="email" v-model="email">
       <input type="password" required placeholder="password" v-model="password">
+      <div class="error">{{ error }}</div>
       <button>Sing up</button>
   </form>
 </template>
 
 <script>
 import { ref } from 'vue'
+import useSingup from '../composables/useSingup'
+
 export default {
     setup() { 
+        const { error, singup } = useSingup()
+
         const displayName = ref('')
         const email = ref('')
         const password = ref('')
 
-        const handleSubmit = () => {
-            console.log(displayName.value, email.value, password.value ) 
+        const handleSubmit = async() => {
+            await singup(email.value, password.value, displayName.value)
+            console.log('user singed up')
         }
 
-        return { displayName, email, password, handleSubmit }
+        return { displayName, email, password, handleSubmit, error }
     }
 }
 </script>
